@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Kenney's diamonds",
+    "tmx": {
+      "fileName": "levels/kenney/tiledmap.tmx",
+      "tileSetName": "plaformer",
+      "blocksLayerName": "Platforms"
+    }
+  }
+]

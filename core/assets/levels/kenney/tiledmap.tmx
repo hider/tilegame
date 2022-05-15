@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="34" height="14" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="33">
+ <properties>
+  <property name="minViewSizeHeight" type="float" value="694.13"/>
+  <property name="minViewSizeWidth" type="float" value="1234"/>
+ </properties>
+ <tileset firstgid="1" name="plaformer" tilewidth="64" tileheight="64" tilecount="98" columns="14">
+  <image source="tilesets/platformPack_tilesheet.png" width="896" height="448"/>
+  <tile id="0" type="Block">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="type" value="Grass"/>
+   </properties>
+  </tile>
+  <tile id="3" type="Block">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="type" value="Dirt"/>
+   </properties>
+  </tile>
+  <tile id="46" type="Block">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="type" value="WoodenBox"/>
+   </properties>
+  </tile>
+  <tile id="50" type="Entity">
+   <properties>
+    <property name="type" value="io.github.hider.tilegame.entities.Collectible"/>
+   </properties>
+  </tile>
+  <tile id="70" type="Entity">
+   <properties>
+    <property name="mass" type="float" value="1"/>
+    <property name="type" value="io.github.hider.tilegame.entities.Spike"/>
+   </properties>
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="29.5" width="63" height="34.5"/>
+   </objectgroup>
+  </tile>
+  <tile id="73" type="Entity">
+   <properties>
+    <property name="type" value="io.github.hider.tilegame.entities.CollidingEntity"/>
+   </properties>
+  </tile>
+  <tile id="82" type="Entity">
+   <properties>
+    <property name="downAnimationId" type="int" value="11"/>
+    <property name="type" value="io.github.hider.tilegame.entities.EndButton"/>
+   </properties>
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="3.41266" y="29.7028" width="57.1304" height="34.1266"/>
+   </objectgroup>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="animationId" type="int" value="11"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="99" name="Kenney" tilewidth="96" tileheight="96" tilecount="8" columns="4">
+  <image source="tilesets/platformerPack_character.png" width="384" height="192"/>
+  <tile id="0" type="Entity">
+   <properties>
+    <property name="downAnimationId" type="int" value="3"/>
+    <property name="jumpingAnimationId" type="int" value="2"/>
+    <property name="mass" type="float" value="46"/>
+    <property name="type" value="io.github.hider.tilegame.entities.Player"/>
+    <property name="walkingAnimationId" type="int" value="1"/>
+   </properties>
+   <objectgroup draworder="index" id="4">
+    <object id="5" x="27.5984" y="30" width="46.5056" height="66"/>
+   </objectgroup>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="animationId" type="int" value="2"/>
+   </properties>
+  </tile>
+  <tile id="2" type="Entity">
+   <properties>
+    <property name="animationId" type="int" value="1"/>
+    <property name="type" value="io.github.hider.tilegame.entities.Player"/>
+   </properties>
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="27.6" y="30" width="46.51" height="66"/>
+   </objectgroup>
+   <animation>
+    <frame tileid="2" duration="200"/>
+    <frame tileid="3" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="animationId" type="int" value="3"/>
+   </properties>
+  </tile>
+ </tileset>
+ <imagelayer id="5" name="Background" offsetx="0" offsety="-64" repeatx="1">
+  <image source="images/background.png" width="1024" height="1024"/>
+  <properties>
+   <property name="repeatX" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <layer id="1" name="Platforms" width="34" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUwID+QDtgkABqhoM+FjxUALXcSm8/M1IBU8MsFipgGKCGWQPtDgC4XwLI
+  </data>
+ </layer>
+ <objectgroup id="3" name="DecorBack">
+  <object id="5" gid="2147483721" x="448" y="704" width="64" height="64"/>
+  <object id="6" gid="73" x="1040" y="704" width="64" height="64"/>
+  <object id="7" gid="73" x="13" y="704" width="64" height="64"/>
+  <object id="12" gid="2147483721" x="1200" y="704" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="2" name="Entities">
+  <object id="3" gid="71" x="704" y="512" width="64" height="64"/>
+  <object id="4" gid="71" x="576" y="704" width="64" height="64"/>
+  <object id="9" name="Player" gid="99" x="32.7977" y="628.745" width="96" height="96"/>
+  <object id="13" gid="71" x="1088" y="896" width="64" height="64"/>
+  <object id="14" gid="71" x="1152" y="896" width="64" height="64"/>
+  <object id="18" gid="51" x="192" y="512" width="64" height="64"/>
+  <object id="19" gid="51" x="574.667" y="446.667" width="64" height="64"/>
+  <object id="20" gid="51" x="704" y="322.667" width="64" height="64"/>
+  <object id="21" gid="51" x="646.667" y="705.333" width="64" height="64"/>
+  <object id="23" gid="51" x="1148" y="306.667" width="64" height="64"/>
+  <object id="24" gid="51" x="1452" y="158.667" width="64" height="64"/>
+  <object id="25" gid="71" x="1600" y="704" width="64" height="64"/>
+  <object id="26" name="Finish" gid="83" x="2048" y="704" width="64" height="64"/>
+  <object id="30" gid="51" x="1776" y="721.333" width="64" height="64"/>
+  <object id="32" gid="74" x="2048" y="704" width="64" height="64">
+   <properties>
+    <property name="subtype" value="EndProtector"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="DecorFront">
+  <object id="29" gid="73" x="1786" y="704" width="64" height="64"/>
+ </objectgroup>
+</map>
