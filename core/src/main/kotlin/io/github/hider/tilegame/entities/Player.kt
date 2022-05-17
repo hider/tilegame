@@ -17,17 +17,17 @@ private enum class State {
     Idle, Walking, Jumping, Downed
 }
 
+private const val ACCELERATION = 10f
+private const val MAX_SPEED = 5f
+private val JUMP_VELOCITY = Vector2(GRAVITY).nor() * -5.2f
+private const val FRICTION = 10
+
 class Player(private val initProps: EntityProps, private val levelLoader: LevelLoader, map: GameMap): EntityWithHitbox(initProps, map) {
 
     private var state = State.Idle
     private var flipX = false
 
-    companion object {
-        const val ACCELERATION = 10f
-        const val MAX_SPEED = 5f
-              val JUMP_VELOCITY = Vector2(GRAVITY).nor() * -5.2f
-        const val FRICTION = 10
-    }
+    override var canCollide = false
 
     override fun render(batch: Batch) {
         val renderPos = if (initProps.hitbox == null) {
@@ -61,7 +61,7 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         val originalPosition = Vector2(position)
         handleBlockingCollision()
         if (state != State.Downed) {
-            handleTouchables(originalPosition, Vector2(position.x, position.y))
+            handleInteractions(originalPosition, Vector2(position.x, position.y))
         }
         handleStateChange()
     }
@@ -119,30 +119,29 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         }
     }
 
-    private fun handleTouchables(startPos: Vector2, endPos: Vector2) {
+    private fun handleInteractions(startPos: Vector2, endPos: Vector2) {
         val level = levelLoader.currentLevel
         if (level != null) {
-            val touchables = (level.entities.spikes + level.entities.collectibles)
-            touchables.filter {
-                (it is Spike || it is Collectible && !it.collected)
-                    && (hadCollisionX(startPos, endPos.x, it.toRectangle()) != null || hadCollisionY(startPos, endPos.y, it.toRectangle()) != null)
-            }.forEach {
-                if (it is Spike) {
-                    level.dispatchEvent(PlayerDiedEvent(it))
-                    state = State.Downed
-                } else if (it is Collectible) {
-                    level.dispatchEvent(CollectedEvent)
-                    it.collected = true
-                }
-            }
-            val endGameButton = level.entities.specials.firstOrNull()
-            if (endGameButton != null) {
-                if (velocity.y < 0 && startPos.y > endGameButton.position.y + endGameButton.height) {
-                    if (hadCollisionY(startPos, endPos.y, endGameButton.toRectangle()) != null) {
-                        endGameButton.down = true
-                        level.dispatchEvent(LevelEndEvent)
+            level.entities.collidables
+                .filter {
+                    (it is Spike || it is Collectible && !it.collected) && hadAnyCollision(startPos, endPos, it.toRectangle())
+                }.forEach {
+                    if (it is Spike) {
+                        level.dispatchEvent(PlayerDiedEvent(it))
+                        state = State.Downed
+                    } else if (it is Collectible) {
+                        level.dispatchEvent(CollectedEvent)
+                        it.collected = true
                     }
                 }
+            val endGameButton = level.entities.collidables.filterIsInstance<EndButton>().firstOrNull()
+            if (endGameButton != null
+                && velocity.y < 0
+                && hadCollisionY(startPos, endPos.y - endGameButton.height, endGameButton.toRectangle()) != null
+                && startPos.y > endGameButton.position.y + endGameButton.height
+            ) {
+                endGameButton.down = true
+                level.dispatchEvent(LevelEndEvent)
             }
         }
     }
@@ -163,8 +162,10 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         } else collisionX1 ?: collisionX2
 
         if (collisionY == null) {
+            grounded = false
             position.y = newPosition.y
         } else {
+            grounded = velocity.y.sign == GRAVITY.y.sign
             position.y = collisionY
             velocity.y = 0f
         }
@@ -179,17 +180,19 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
     private fun handleBlockingCollisionY(): Float? {
         val level = levelLoader.currentLevel
         if (level != null) {
-            for (block in level.entities.entityBlocks) {
-                if (block.canCollide) {
+            level.entities.collidables
+                .filter { it.canCollide }
+                .sortedBy { abs(position.y - it.position.y) }
+                .forEach { block ->
                     val newPos = hadCollisionY(block.toRectangle())
-                    if (newPos != null) {
-                        grounded = velocity.y.sign == GRAVITY.y.sign
-                        return newPos
-                    }
+                    if (newPos != null) return newPos
                 }
-            }
         }
         return null
+    }
+
+    private fun hadAnyCollision(startPos: Vector2, endPos: Vector2, staticRect: Rectangle): Boolean {
+        return hadCollisionX(startPos, endPos.x, staticRect) != null || hadCollisionY(startPos, endPos.y, staticRect) != null
     }
 
     private fun hadCollisionY(staticRect: Rectangle) = hadCollisionY(position, position.y + velocity.y, staticRect)
@@ -218,7 +221,10 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
     private fun handleBlockingCollisionX(): Float? {
         val level = levelLoader.currentLevel
         if (level != null) {
-            for (block in level.entities.entityBlocks) {
+            level.entities.collidables
+                .filter { it.canCollide }
+                .sortedBy { abs(position.x - it.position.x) }
+                .forEach { block ->
                 if (block.canCollide) {
                     val newPos = hadCollisionX(block.toRectangle())
                     if (newPos != null) {

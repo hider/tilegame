@@ -10,6 +10,8 @@ sealed class EntityWithHitbox(private val initProps: EntityProps, map: GameMap):
     final override val height: Float
     final override val width: Float
 
+    open var canCollide = true
+
     init {
         if (initProps.hitbox == null) {
             position = Vector2(initProps.position)

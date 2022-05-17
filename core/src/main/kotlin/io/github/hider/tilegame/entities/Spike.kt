@@ -4,5 +4,7 @@ import io.github.hider.tilegame.map.GameMap
 
 class Spike(initProps: EntityProps, map: GameMap): EntityWithHitbox(initProps, map) {
 
+    override var canCollide = false
+
     override fun update(deltaTime: Float) {}
 }

@@ -8,6 +8,6 @@ Binary assets are not included in the repository, instead you can download them 
 
 ## License
 
-All source code released under GNU General Public License v3.0, see [LICENSE](https://github.com/hider/tilegame/blob/main/LICENSE).
+All source code released under _GNU General Public License v3.0 or later_, see [LICENSE](/LICENSE).
 
-Level assets (images) released under Creative Commons Zero, CC0, credit to https://www.kenney.nl/.
+Level assets (images) released under _Creative Commons Zero, CC0_, credit to https://www.kenney.nl/.

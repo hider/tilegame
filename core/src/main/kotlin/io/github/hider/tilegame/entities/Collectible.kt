@@ -8,6 +8,8 @@ class Collectible(initProps: EntityProps, map: GameMap): EntityWithHitbox(initPr
     val texture = initProps.stateTexture.idle
     var collected = false
 
+    override var canCollide = false
+
     override fun update(deltaTime: Float) {}
     override fun render(batch: Batch) {
         if (!collected) {

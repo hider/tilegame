@@ -98,7 +98,7 @@ class LevelLoader(levelsPath: String) : Disposable {
             Player::class.qualifiedName -> Player(createProps(obj, map.tiledMap.tileSets), this, map)
             Spike::class.qualifiedName -> Spike(createProps(obj, map.tiledMap.tileSets), map)
             Collectible::class.qualifiedName -> Collectible(createProps(obj, map.tiledMap.tileSets), map)
-            CollidingEntity::class.qualifiedName -> CollidingEntity(createProps(obj, map.tiledMap.tileSets), map)
+            EndProtector::class.qualifiedName -> EndProtector(createProps(obj, map.tiledMap.tileSets), map)
             EndButton::class.qualifiedName -> EndButton(createProps(obj, map.tiledMap.tileSets), map)
             else -> NullEntity(map)
         }

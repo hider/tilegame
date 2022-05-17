@@ -40,7 +40,7 @@
   </tile>
   <tile id="73" type="Entity">
    <properties>
-    <property name="type" value="io.github.hider.tilegame.entities.CollidingEntity"/>
+    <property name="type" value="io.github.hider.tilegame.entities.EndProtector"/>
    </properties>
   </tile>
   <tile id="82" type="Entity">
@@ -128,11 +128,7 @@
   <object id="25" gid="71" x="1600" y="704" width="64" height="64"/>
   <object id="26" name="Finish" gid="83" x="2048" y="704" width="64" height="64"/>
   <object id="30" gid="51" x="1776" y="721.333" width="64" height="64"/>
-  <object id="32" gid="74" x="2048" y="704" width="64" height="64">
-   <properties>
-    <property name="subtype" value="EndProtector"/>
-   </properties>
-  </object>
+  <object id="32" gid="74" x="2048" y="704" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="DecorFront">
   <object id="29" gid="73" x="1786" y="704" width="64" height="64"/>

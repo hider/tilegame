@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector3
+import io.github.hider.tilegame.entities.Collectible
 import io.github.hider.tilegame.entities.Spike
 import io.github.hider.tilegame.io.Fonts
 import io.github.hider.tilegame.levels.CollectedEvent
@@ -25,8 +26,8 @@ class Hud(private val camera: Camera, private val fonts: Fonts, level: Level) {
     private val shapeRenderer = ShapeRenderer().apply {
         color = Color.valueOf("#34deeb").apply { a = .2f }
     }
-    private val collectibleCount = level.entities.collectibles.size
-    private val collectibleTexture = if (level.entities.collectibles.isNotEmpty()) level.entities.collectibles[0].texture else null
+    private val collectibleCount = level.entities.collidables.filterIsInstance<Collectible>().size
+    private val collectibleTexture = if (collectibleCount > 0) level.entities.collidables.filterIsInstance<Collectible>()[0].texture else null
     private val messages = UiMessages(camera)
     private var lastMessageMillis = 0L
     private var collectedCount = 0

@@ -3,11 +3,9 @@ package io.github.hider.tilegame.entities
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import io.github.hider.tilegame.GRAVITY
 import io.github.hider.tilegame.map.GameMap
 import kotlin.math.absoluteValue
 import kotlin.math.min
-import kotlin.math.sign
 
 sealed class Entity(private val map: GameMap) {
 
@@ -63,10 +61,6 @@ sealed class Entity(private val map: GameMap) {
                 }
             } while (collisionPos == null && nextYToCheck <= newY)
         }
-
-        grounded = if (collisionPos != null) {
-            velocity.y.sign == GRAVITY.y.sign
-        } else false
 
         return collisionPos
     }
