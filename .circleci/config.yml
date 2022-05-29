@@ -1,13 +1,22 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-orbs:
-  gradle: circleci/gradle@2.2.0
-executors:
-  jdk17:
+jobs:
+  build:
     docker:
       - image: 'cimg/openjdk:17.0.3'
+    steps:
+      - checkout
+      - run:
+         name: 'Download static assets'
+         command: |
+            curl --location --output assets.zip https://github.com/hider/tilegame/releases/download/v0.0.1/assets.zip
+            unzip assets.zip -d ./core
+      - run:
+         name: 'Run Gradle build'
+         command: './gradlew :desktop:build'
+      - store_artifacts:
+          path: './desktop/build/distributions'
 workflows:
-    example-workflow:
+    gradle-build-deploy:
       jobs:
-        - gradle/run:
-            executor: jdk17
+        - build
