@@ -1,0 +1,8 @@
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+orbs:
+  gradle: circleci/gradle@2.2.0
+workflows:
+    example-workflow:
+      jobs:
+        - gradle/run
