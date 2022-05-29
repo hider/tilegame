@@ -2,7 +2,12 @@
 version: 2.1
 orbs:
   gradle: circleci/gradle@2.2.0
+executors:
+  jdk17:
+    docker:
+      - image: 'cimg/openjdk:17.0.3'
 workflows:
     example-workflow:
       jobs:
-        - gradle/run
+        - gradle/run:
+            executor: jdk17
