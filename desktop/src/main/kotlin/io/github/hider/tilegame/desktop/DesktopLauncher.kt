@@ -2,6 +2,7 @@ package io.github.hider.tilegame.desktop
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration.GLEmulation.GL30
 import io.github.hider.tilegame.FatalGameException
 import io.github.hider.tilegame.TileGame
 import javax.swing.JOptionPane
@@ -15,7 +16,7 @@ fun main() {
             setTitle(GAME_TITLE)
             setWindowedMode(1280, 720)
             setResizable(true)
-            useOpenGL3(true, 4, 2)
+            setOpenGLEmulation(GL30, 4, 2)
         })
     } catch (e: FatalGameException) {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
