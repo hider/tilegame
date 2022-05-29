@@ -120,6 +120,7 @@ class LevelLoader(levelsPath: String) : Disposable {
             obj.properties["width"] as Float,
             obj.properties["height"] as Float,
             obj.tile.objects.filterIsInstance<RectangleMapObject>().firstOrNull()?.rectangle,
+            EntityProps.Flip(obj.isFlipVertically, obj.isFlipHorizontally),
         )
     }
 

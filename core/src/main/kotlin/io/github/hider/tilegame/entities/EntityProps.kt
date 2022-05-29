@@ -11,6 +11,7 @@ data class EntityProps(
     val renderWidth: Float,
     val renderHeight: Float,
     val hitbox: Rectangle?,
+    val flip: Flip
 ) {
     data class EntityStateTexture(
         val idle: TextureRegion,
@@ -18,4 +19,5 @@ data class EntityProps(
         val jump: TextureRegion,
         val down: TextureRegion,
     )
+    data class Flip(val vertical: Boolean, val horizontal: Boolean)
 }
