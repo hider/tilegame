@@ -1,11 +1,13 @@
 plugins {
     kotlin("jvm") version "1.6.21" apply false
     kotlin("plugin.serialization") version "1.6.21" apply false
+    id("org.sonarqube") version "3.3"
 }
 
 allprojects {
     group = "io.github.hider"
     version = "0.0.2"
+    description = "libGDX based tile platformer"
 
     repositories {
         mavenCentral()
@@ -24,5 +26,13 @@ subprojects {
                 jvmTarget = "11"
             }
         }
+    }
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "hider_tilegame")
+        property("sonar.organization", "hider")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
