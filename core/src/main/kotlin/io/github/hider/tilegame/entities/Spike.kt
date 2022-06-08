@@ -6,5 +6,5 @@ class Spike(initProps: EntityProps, map: GameMap): EntityWithHitbox(initProps, m
 
     override var canCollide = false
 
-    override fun update(deltaTime: Float) {}
+    override fun update(deltaTime: Float) {/* Nothing to update */}
 }

@@ -10,7 +10,7 @@ class Collectible(initProps: EntityProps, map: GameMap): EntityWithHitbox(initPr
 
     override var canCollide = false
 
-    override fun update(deltaTime: Float) {}
+    override fun update(deltaTime: Float) {/* Nothing to update */}
     override fun render(batch: Batch) {
         if (!collected) {
             super.render(batch)
