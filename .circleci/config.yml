@@ -12,8 +12,8 @@ jobs:
             curl --location --output assets.zip https://github.com/hider/tilegame/releases/download/v0.0.1/assets.zip
             unzip assets.zip -d ./core
       - run:
-         name: '🔨 Run Gradle build'
-         command: './gradlew build sonarqube'
+         name: '🔨 Build & analyse'
+         command: './gradlew build jacocoTestReport sonarqube'
       - store_artifacts:
           path: './desktop/build/distributions'
 workflows:

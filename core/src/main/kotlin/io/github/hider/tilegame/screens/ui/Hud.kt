@@ -34,11 +34,9 @@ class Hud(private val camera: Camera, private val fonts: Fonts, level: Level) {
 
     init {
         level.subscribeEvent(PlayerDiedEvent::class) {
-            if (it.cause is Spike) {
-                if (lastMessageMillis + MESSAGE_VISIBLE_MILLIS < System.currentTimeMillis()) {
-                    addMessage("Touching the spikes is dangerous!", fonts.sansSerif22, UiMessages.UiMessageLocation.BottomLeft)
-                    lastMessageMillis = System.currentTimeMillis()
-                }
+            if (it.cause is Spike && lastMessageMillis + MESSAGE_VISIBLE_MILLIS < System.currentTimeMillis()) {
+                addMessage("Touching the spikes is dangerous!", fonts.sansSerif22, UiMessages.UiMessageLocation.BottomLeft)
+                lastMessageMillis = System.currentTimeMillis()
             }
         }
         level.subscribeEvent(CollectedEvent::class) {

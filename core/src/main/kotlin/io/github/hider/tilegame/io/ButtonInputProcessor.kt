@@ -34,7 +34,7 @@ open class ButtonInputProcessor(private val game: TileGame) : InputAdapter() {
             true
         }
         Keys.ENTER -> {
-            if (altKeyDown) game.toggleFullscreen() else false
+            altKeyDown && game.toggleFullscreen()
         }
         Keys.F10 -> {
             game.enableFreeCamera = !game.enableFreeCamera

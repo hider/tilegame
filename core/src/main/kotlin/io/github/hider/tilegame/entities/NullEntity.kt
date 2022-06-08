@@ -15,6 +15,6 @@ class NullEntity(map: GameMap): Entity(map) {
     override val height = 0f
     override val width = 0f
 
-    override fun update(deltaTime: Float) {}
-    override fun render(batch: Batch) {}
+    override fun update(deltaTime: Float) {/* Nothing to update */}
+    override fun render(batch: Batch) {/* Nothing to render */}
 }

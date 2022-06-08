@@ -7,7 +7,7 @@ class EndButton(private val initProps: EntityProps, map: GameMap): EntityWithHit
 
     var down = false
 
-    override fun update(deltaTime: Float) {}
+    override fun update(deltaTime: Float) {/* Nothing to update */}
     override fun render(batch: Batch) {
         if (down) {
             val renderPos = if (initProps.hitbox == null) position.x to position.y else position.x - initProps.hitbox.x to position.y - initProps.hitbox.y
