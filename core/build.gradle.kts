@@ -24,10 +24,6 @@ sourceSets {
 }
 
 tasks {
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_11
-    }
     jar {
         archiveBaseName.set("tilegame-" + archiveBaseName.get())
     }
@@ -36,7 +32,8 @@ tasks {
             xml.required.set(true)
         }
     }
-    test {
-        useJUnitPlatform()
-    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
 }
