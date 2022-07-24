@@ -94,11 +94,11 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         }
 
         if (directionX != 0f) {
-            val jumpingModifier = if (grounded) 1f else .75f
+            val jumpingModifier = if (grounded || directionX.sign != velocity.x.sign) 1f else .5f
             velocity.x += directionX * ACCELERATION * deltaTime * jumpingModifier
-            if (velocity.x.absoluteValue > MAX_SPEED) {
-                velocity.x = MAX_SPEED * velocity.x.sign
-            }
+        }
+        if (velocity.x.absoluteValue > MAX_SPEED) {
+            velocity.x = MAX_SPEED * velocity.x.sign
         }
     }
 
