@@ -59,9 +59,11 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         }
         handleFriction(deltaTime)
         val originalPosition = Vector2(position)
+        val originalVelocity = Vector2(velocity)
         handleBlockingCollision()
         if (state != State.Downed) {
-            handleInteractions(originalPosition, Vector2(position.x, position.y))
+            val positionAfterCollision = Vector2(position.x, position.y)
+            handleInteractions(originalPosition, positionAfterCollision, originalVelocity)
         }
         handleStateChange()
     }
@@ -119,7 +121,7 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
         }
     }
 
-    private fun handleInteractions(startPos: Vector2, endPos: Vector2) {
+    private fun handleInteractions(startPos: Vector2, endPos: Vector2, originalVelocity: Vector2) {
         val level = levelLoader.currentLevel
         if (level != null) {
             level.entities.collidables
@@ -136,8 +138,8 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
                 }
             val endGameButton = level.entities.collidables.filterIsInstance<EndButton>().firstOrNull()
             if (endGameButton != null
-                && velocity.y < 0
-                && hadCollisionY(startPos, endPos.y - endGameButton.height, endGameButton.toRectangle()) != null
+                && originalVelocity.y < 0
+                && hadCollisionY(startPos, endPos.y - 1, endGameButton.toRectangle()) != null
                 && startPos.y > endGameButton.position.y + endGameButton.height
             ) {
                 endGameButton.down = true

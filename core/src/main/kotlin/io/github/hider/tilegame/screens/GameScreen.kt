@@ -102,6 +102,9 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
         if (tileType != null) {
             debugText.add("You clicked on tile: ${tileType.type.name} (${tileType.col},${tileType.row})")
         }
+        if (game.enableFreeCamera) {
+            debugText.add("Free camera is ON")
+        }
         debugText.add("Player pos: ${level.entities.player?.position}")
         val camPos = camera.position
         debugText.add("Cam: $camPos")
