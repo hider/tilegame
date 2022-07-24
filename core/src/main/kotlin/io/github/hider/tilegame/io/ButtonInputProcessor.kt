@@ -36,6 +36,10 @@ open class ButtonInputProcessor(private val game: TileGame) : InputAdapter() {
         Keys.ENTER -> {
             altKeyDown && game.toggleFullscreen()
         }
+        Keys.F9 -> {
+            game.showCollisionShapes = !game.showCollisionShapes
+            true
+        }
         Keys.F10 -> {
             game.enableFreeCamera = !game.enableFreeCamera
             true

@@ -34,6 +34,7 @@ class TileGame : Game() {
 
     var showDebugInfo = false
     var enableFreeCamera = false
+    var showCollisionShapes = false
 
     override fun create() {
         batch = SpriteBatch()

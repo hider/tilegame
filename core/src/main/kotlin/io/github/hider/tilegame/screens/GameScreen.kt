@@ -10,13 +10,14 @@ import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
+import io.github.hider.tilegame.TileGame
 import io.github.hider.tilegame.io.InputHelpers.isPressed
 import io.github.hider.tilegame.io.Sound
-import io.github.hider.tilegame.TileGame
 import io.github.hider.tilegame.levels.*
+import io.github.hider.tilegame.map.TilePiece
+import io.github.hider.tilegame.screens.ui.CollisionShapeRenderer
 import io.github.hider.tilegame.screens.ui.DebugText
 import io.github.hider.tilegame.screens.ui.Hud
-import io.github.hider.tilegame.map.TilePiece
 import io.github.hider.tilegame.use
 
 
@@ -28,6 +29,7 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
     private val hud = Hud(hudViewport.camera, game.fonts, level)
     private val levelManager = LevelManager(level, hud, game.fonts)
     private val sounds = mutableListOf<Sound.Sfx>()
+    private val collisionShapeRenderer = CollisionShapeRenderer(level.entities.collidables)
 
     private var touchedTileType: TilePiece? = null
     private var resetLevelAtMillis = 0L
@@ -64,6 +66,9 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
         mainViewport.apply()
         // Projection matrix applied by map render
         level.map.render(camera)
+        if (game.showCollisionShapes) {
+            collisionShapeRenderer.render(camera)
+        }
 
         hudViewport.apply()
         hud.render(game.batch)
@@ -104,6 +109,9 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
         }
         if (game.enableFreeCamera) {
             debugText.add("Free camera is ON")
+        }
+        if (game.showCollisionShapes) {
+            debugText.add("Collision shapes is ON")
         }
         debugText.add("Player pos: ${level.entities.player?.position}")
         val camPos = camera.position
