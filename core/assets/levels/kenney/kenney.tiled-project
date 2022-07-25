@@ -1,0 +1,34 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "extensionsPath": "extensions",
+    "folders": [
+        ".",
+        "."
+    ],
+    "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "id": 1,
+            "members": [
+                {
+                    "name": "collidable",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "type",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Block",
+            "type": "class",
+            "useAs": [
+                "property",
+                "tile"
+            ]
+        }
+    ]
+}

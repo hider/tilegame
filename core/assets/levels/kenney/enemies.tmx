@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="34" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="44">
+ <properties>
+  <property name="minViewSizeHeight" type="float" value="694.13"/>
+  <property name="minViewSizeWidth" type="float" value="1234"/>
+ </properties>
+ <tileset firstgid="1" source="tilesets/player_tileset.tsx"/>
+ <tileset firstgid="9" source="tilesets/platformPack_tileset.tsx"/>
+ <imagelayer id="5" name="Background" offsetx="0" offsety="64" repeatx="1">
+  <image source="images/background.png" width="1024" height="1024"/>
+  <properties>
+   <property name="repeatX" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <layer id="1" name="Platforms" width="34" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqoD4KheKDBqDtQwag7UAHnIME8oxgFAwCrMweh
+  </data>
+ </layer>
+ <objectgroup id="3" name="DecorBack">
+  <object id="37" gid="81" x="128" y="1088" width="64" height="64"/>
+  <object id="38" gid="2147483729" x="512" y="1088" width="64" height="64"/>
+  <object id="39" gid="2147483729" x="960" y="1088" width="64" height="64"/>
+  <object id="40" gid="81" x="1408" y="1088" width="64" height="64"/>
+  <object id="41" gid="81" x="475.022" y="1638.76" width="64" height="64"/>
+  <object id="42" gid="81" x="1792" y="1088" width="64" height="64"/>
+  <object id="43" gid="2147483729" x="1920" y="1088" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="2" name="Entities">
+  <object id="9" name="Player" gid="1" x="178.719" y="1059.16" width="96" height="96"/>
+ </objectgroup>
+ <objectgroup id="7" name="DecorFront"/>
+</map>

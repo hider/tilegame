@@ -3,7 +3,15 @@
     "name": "Kenney's diamonds",
     "tmx": {
       "fileName": "levels/kenney/tiledmap.tmx",
-      "tileSetName": "plaformer",
+      "tileSetName": "platformer",
+      "blocksLayerName": "Platforms"
+    }
+  },
+  {
+    "name": "Kenney's enemies",
+    "tmx": {
+      "fileName": "levels/kenney/enemies.tmx",
+      "tileSetName": "platformer",
       "blocksLayerName": "Platforms"
     }
   }
