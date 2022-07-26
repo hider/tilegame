@@ -13,6 +13,11 @@
    <property name="type" value="Dirt"/>
   </properties>
  </tile>
+ <tile id="25" class="Entity">
+  <properties>
+   <property name="type" value="io.github.hider.tilegame.entities.Wirler"/>
+  </properties>
+ </tile>
  <tile id="46" class="Block">
   <properties>
    <property name="collidable" type="bool" value="true"/>
@@ -26,7 +31,6 @@
  </tile>
  <tile id="70" class="Entity">
   <properties>
-   <property name="mass" type="float" value="1"/>
    <property name="type" value="io.github.hider.tilegame.entities.Spike"/>
   </properties>
   <objectgroup draworder="index" id="2">

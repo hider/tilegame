@@ -9,7 +9,6 @@ import kotlin.math.min
 
 sealed class Entity(private val map: GameMap) {
 
-    protected var grounded = false
     protected val velocity = Vector2()
 
     abstract val position: Vector2

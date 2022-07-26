@@ -29,6 +29,23 @@
                 "property",
                 "tile"
             ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "id": 2,
+            "members": [
+                {
+                    "name": "type",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Entity",
+            "type": "class",
+            "useAs": [
+                "property",
+                "tile"
+            ]
         }
     ]
 }

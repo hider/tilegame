@@ -94,13 +94,14 @@ class LevelLoader(levelsPath: String) : Disposable {
     }
 
     private fun createEntity(obj: TiledMapTileMapObject, map: TiledGameMap): Entity {
-        return when (obj.tile.properties["type"] as String) {
+        return when (obj.tile.properties["type"] as String?) {
             Player::class.qualifiedName -> Player(createProps(obj, map.tiledMap.tileSets), this, map)
             Spike::class.qualifiedName -> Spike(createProps(obj, map.tiledMap.tileSets), map)
             Collectible::class.qualifiedName -> Collectible(createProps(obj, map.tiledMap.tileSets), map)
             EndProtector::class.qualifiedName -> EndProtector(createProps(obj, map.tiledMap.tileSets), map)
             EndButton::class.qualifiedName -> EndButton(createProps(obj, map.tiledMap.tileSets), map)
-            else -> NullEntity(map)
+            Wirler::class.qualifiedName -> Wirler(createProps(obj, map.tiledMap.tileSets), this, map)
+            else -> NullEntity(map, obj.properties["gid"] as Int)
         }
     }
 

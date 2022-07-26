@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector3
 import io.github.hider.tilegame.entities.Collectible
 import io.github.hider.tilegame.entities.Spike
+import io.github.hider.tilegame.entities.Wirler
 import io.github.hider.tilegame.io.Fonts
 import io.github.hider.tilegame.levels.CollectedEvent
 import io.github.hider.tilegame.levels.Level
@@ -38,6 +39,9 @@ class Hud(private val camera: Camera, private val fonts: Fonts, level: Level) {
                 addMessage("Touching the spikes is dangerous!", fonts.sansSerif22, UiMessages.UiMessageLocation.BottomLeft)
                 lastMessageMillis = System.currentTimeMillis()
             }
+            if (it.cause is Wirler) {
+                addMessage("Touching wirlers is dangerous!", fonts.sansSerif22, UiMessages.UiMessageLocation.BottomLeft)
+            }
         }
         level.subscribeEvent(CollectedEvent::class) {
             ++collectedCount
@@ -53,9 +57,12 @@ class Hud(private val camera: Camera, private val fonts: Fonts, level: Level) {
     }
 
     fun render(batch: Batch) {
-        if (collectibleCount == 0) return
-
-        batch.projectionMatrix = camera.combined
+        if (collectibleCount == 0) {
+            batch.use {
+                messages.render(batch)
+            }
+            return
+        }
 
         val zero = camera.unproject(Vector3(0f, 0f, 0f))
         val layout = if (collectibleTexture == null) {

@@ -2,7 +2,10 @@ package io.github.hider.tilegame.entities
 
 import io.github.hider.tilegame.map.GameMap
 
-class Spike(initProps: EntityProps, map: GameMap): EntityWithHitbox(initProps, map) {
+class Spike(
+    initProps: EntityProps,
+    map: GameMap,
+) : EntityWithHitbox(initProps, map), DeadlyEnemy {
 
     override var canCollide = false
 

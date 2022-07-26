@@ -18,6 +18,7 @@ import io.github.hider.tilegame.map.TilePiece
 import io.github.hider.tilegame.screens.ui.CollisionShapeRenderer
 import io.github.hider.tilegame.screens.ui.DebugText
 import io.github.hider.tilegame.screens.ui.Hud
+import io.github.hider.tilegame.screens.ui.IdentityHashCodeRenderer
 import io.github.hider.tilegame.use
 
 
@@ -30,6 +31,7 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
     private val levelManager = LevelManager(level, hud, game.fonts)
     private val sounds = mutableListOf<Sound.Sfx>()
     private val collisionShapeRenderer = CollisionShapeRenderer(level.entities.collidables)
+    private val identityHashCodeRenderer = IdentityHashCodeRenderer(level.entities.collidables, game.fonts.default)
 
     private var touchedTileType: TilePiece? = null
     private var resetLevelAtMillis = 0L
@@ -69,8 +71,12 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
         if (game.showCollisionShapes) {
             collisionShapeRenderer.render(camera)
         }
+        if (game.showDebugInfo) {
+            identityHashCodeRenderer.render(game.batch)
+        }
 
         hudViewport.apply()
+        game.batch.projectionMatrix = hudViewport.camera.combined
         hud.render(game.batch)
 
         if (game.showDebugInfo) {
