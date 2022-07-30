@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="34" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="48">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="44" height="20" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#cfeffc" nextlayerid="8" nextobjectid="68">
  <properties>
   <property name="minViewSizeHeight" type="float" value="694.13"/>
   <property name="minViewSizeWidth" type="float" value="1234"/>
  </properties>
  <tileset firstgid="1" source="tilesets/player_tileset.tsx"/>
  <tileset firstgid="9" source="tilesets/platformPack_tileset.tsx"/>
- <imagelayer id="5" name="Background" offsetx="0" offsety="64" repeatx="1">
+ <imagelayer id="5" name="Background" offsetx="0" offsety="256" repeatx="1">
   <image source="images/background.png" width="1024" height="1024"/>
   <properties>
    <property name="repeatX" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <layer id="1" name="Platforms" width="34" height="20">
+ <layer id="1" name="Platforms" width="44" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAqoD4KheKDBqDtQAbnuMB8Ad2Czk1h3EKuOc5BgnlGMggFnnQh9
+   eJxjYBgFo2AUjIJRMApoA8wplKc3CCYCD1VA7bCmd3hQ6v6hFn/0ci+10gW57h2oMoAY92JzG7HuJcVfxKjlpDOm1F4eOmMYoLe95GJKwwkAFPENzA==
   </data>
  </layer>
  <objectgroup id="3" name="DecorBack">
@@ -22,15 +22,29 @@
   <object id="38" gid="2147483729" x="512" y="1088" width="64" height="64"/>
   <object id="39" gid="2147483729" x="960" y="1088" width="64" height="64"/>
   <object id="40" gid="81" x="1408" y="1088" width="64" height="64"/>
-  <object id="41" gid="81" x="475.022" y="1638.76" width="64" height="64"/>
-  <object id="42" gid="81" x="1792" y="1088" width="64" height="64"/>
-  <object id="43" gid="2147483729" x="1920" y="1088" width="64" height="64"/>
+  <object id="42" gid="81" x="2176" y="1088" width="64" height="64"/>
+  <object id="43" gid="2147483729" x="2304" y="1088" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="2" name="Entities">
   <object id="9" name="Player" gid="1" x="178.719" y="1059.16" width="96" height="96"/>
   <object id="44" gid="34" x="896" y="960" width="64" height="64"/>
   <object id="45" gid="34" x="1536" y="1024" width="64" height="64"/>
   <object id="46" gid="34" x="1024" y="1088" width="64" height="64"/>
+  <object id="48" gid="34" x="1344" y="576" width="64" height="64"/>
+  <object id="49" gid="59" x="832" y="1088" width="64" height="64"/>
+  <object id="50" gid="59" x="1216" y="1088" width="64" height="64"/>
+  <object id="51" gid="59" x="896" y="832" width="64" height="64"/>
+  <object id="52" gid="59" x="1088" y="512" width="64" height="64"/>
+  <object id="53" gid="79" x="1088" y="640" width="64" height="64"/>
+  <object id="54" name="Finish" gid="91" x="2688" y="1088" width="64" height="64"/>
+  <object id="55" gid="82" x="2688" y="1088" width="64" height="64"/>
+  <object id="56" gid="34" x="2624" y="1088" width="64" height="64"/>
+  <object id="57" gid="79" x="1792" y="1216" width="64" height="64"/>
+  <object id="58" gid="79" x="1856" y="1216" width="64" height="64"/>
+  <object id="59" gid="79" x="0" y="768" width="64" height="64"/>
+  <object id="60" gid="79" x="64" y="768" width="64" height="64"/>
+  <object id="63" gid="59" x="1920" y="640" width="64" height="64"/>
+  <object id="64" gid="59" x="2432" y="960" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="7" name="DecorFront"/>
 </map>

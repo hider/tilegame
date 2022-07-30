@@ -1,5 +1,6 @@
 package io.github.hider.tilegame.entities
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
@@ -25,6 +26,7 @@ internal class EntityTest {
             override val blocksLayerIndex = 1
             override val minViewSizeWidthToHeight = 1f to 1f
             override val tileSize = 2
+            override val backgroundColor = Color.BLUE
 
             override fun render(camera: OrthographicCamera) {}
             override fun getTileTypeByCoordinate(layer: Int, col: Int, row: Int) = TileType(1, "test", true)

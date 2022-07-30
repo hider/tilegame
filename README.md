@@ -1,6 +1,6 @@
 # libGDX based tile platformer
 
-One level platformer game written in Kotlin.
+Two level platformer game written in Kotlin.
 
 [![CircleCI](https://circleci.com/gh/hider/tilegame/tree/main.svg?style=shield)](https://circleci.com/gh/hider/tilegame/tree/main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hider_tilegame&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=hider_tilegame)

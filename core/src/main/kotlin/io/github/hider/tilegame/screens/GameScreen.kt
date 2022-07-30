@@ -28,7 +28,7 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
     private val mainViewport = ExtendViewport(level.map.minViewSizeWidthToHeight.first ?: level.map.getPixelWidth().toFloat(), level.map.minViewSizeWidthToHeight.second ?: level.map.getPixelHeight().toFloat(), camera)
     private val hudViewport = ScreenViewport()
     private val hud = Hud(hudViewport.camera, game.fonts, level)
-    private val levelManager = LevelManager(level, hud, game.fonts)
+    private val levelManager = LevelManager(level, hud, game)
     private val sounds = mutableListOf<Sound.Sfx>()
     private val collisionShapeRenderer = CollisionShapeRenderer(level.entities.collidables)
     private val identityHashCodeRenderer = IdentityHashCodeRenderer(level.entities.collidables, game.fonts.default)
@@ -50,7 +50,7 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
             // Do not render when screen is not visible, otherwise some division by zero can happen
             return
         }
-        ScreenUtils.clear(0f, 0f, 0.2f, 1f)
+        ScreenUtils.clear(level.map.backgroundColor)
 
         assert(camera === mainViewport.camera)
         if (game.enableFreeCamera && Gdx.input.isTouched && (Gdx.input.deltaX != 0 || Gdx.input.deltaY != 0)) {

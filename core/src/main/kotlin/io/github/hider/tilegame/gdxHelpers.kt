@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.MapObjects
 import com.badlogic.gdx.utils.Array
-import java.util.Comparator
 
 fun Batch.use(commands: () -> Unit) {
     begin()

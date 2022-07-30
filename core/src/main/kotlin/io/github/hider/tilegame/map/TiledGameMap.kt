@@ -1,5 +1,6 @@
 package io.github.hider.tilegame.map
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.maps.MapLayer
@@ -41,6 +42,10 @@ class TiledGameMap(batch: Batch, private val config: TmxConfig) : GameMap() {
     override val tileSize = tiledMap.properties["tilewidth"] as Int
     override val blocksLayerIndex = tiledMap.layers.getIndex(baseLayer)
     override val minViewSizeWidthToHeight = tiledMap.properties["minViewSizeWidth"] as Float? to tiledMap.properties["minViewSizeHeight"] as Float?
+    override val backgroundColor: Color =
+        if (tiledMap.properties["backgroundcolor"] is String)
+            Color.valueOf(tiledMap.properties["backgroundcolor"] as String)
+        else Color(0f, 0f, 0.2f, 1f)
 
     override fun getTileTypeByCoordinate(layer: Int, col: Int, row: Int): TileType? {
         val mapLayer = getLayer(layer)

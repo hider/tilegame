@@ -1,5 +1,6 @@
 package io.github.hider.tilegame.map
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.utils.Disposable
@@ -19,6 +20,7 @@ abstract class GameMap : Disposable {
      * Tile size in pixels
      */
     abstract val tileSize: Int
+    abstract val backgroundColor: Color
 
     abstract fun getTileTypeByCoordinate(layer: Int, col: Int, row: Int): TileType?
 

@@ -48,7 +48,7 @@ class Wirler(
                 .filter(entityCollisionsLastFrame::contains)
                 .forEach {
                     if (it is Player) it.die(this)
-                    else collided = true
+                    else if (it.canCollide) collided = true
                 }
         }
         if (collided) {
