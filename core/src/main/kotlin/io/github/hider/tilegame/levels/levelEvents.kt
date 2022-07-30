@@ -11,5 +11,3 @@ data class PlayerDiedEvent(
 object CollectedEvent : LevelEvent()
 
 object LevelEndEvent : LevelEvent()
-
-object ResetLevelEvent : LevelEvent()

@@ -10,7 +10,6 @@ import io.github.hider.tilegame.io.ButtonInputProcessor
 import io.github.hider.tilegame.io.Fonts
 import io.github.hider.tilegame.io.Sound
 import io.github.hider.tilegame.levels.LevelLoader
-import io.github.hider.tilegame.levels.ResetLevelEvent
 import io.github.hider.tilegame.screens.GameScreen
 import io.github.hider.tilegame.screens.MainMenuScreen
 
@@ -81,9 +80,6 @@ class TileGame : Game() {
                 throw FatalGameException(message, e)
             }
             gameScreen?.dispose()
-            level.subscribeEvent(ResetLevelEvent::class) {
-                resetLevel()
-            }
             gameScreen = GameScreen(this, level)
         }
         Gdx.input.inputProcessor = inputProcessor

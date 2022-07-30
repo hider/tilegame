@@ -17,11 +17,15 @@ class LevelManager(level: Level, private val hud: Hud, private val game: TileGam
 
     private var collectedCount = 0
     private var levelEnd = false
+    private var resetLevelAtMillis = 0L
     private var forwardLevelAtMillis = 0L
 
     init {
         level.subscribeEvent(CollectedEvent::class) {
             ++collectedCount
+        }
+        level.subscribeEvent(PlayerDiedEvent::class) {
+            resetLevelAtMillis = System.currentTimeMillis() + 3000L
         }
         level.subscribeEvent(LevelEndEvent::class) {
             levelEnd = true
@@ -45,6 +49,10 @@ class LevelManager(level: Level, private val hud: Hud, private val game: TileGam
                     }
                 }
             }
+        }
+
+        if (resetLevelAtMillis != 0L && resetLevelAtMillis <= System.currentTimeMillis()) {
+            game.resetLevel()
         }
     }
 }

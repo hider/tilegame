@@ -34,14 +34,10 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
     private val identityHashCodeRenderer = IdentityHashCodeRenderer(level.entities.collidables, game.fonts.default)
 
     private var touchedTileType: TilePiece? = null
-    private var resetLevelAtMillis = 0L
 
     init {
         level.subscribeEvent(CollectedEvent::class) {
             sounds.add(Sound.Sfx.Collect)
-        }
-        level.subscribeEvent(PlayerDiedEvent::class) {
-            resetLevelAtMillis = System.currentTimeMillis() + 3000L
         }
     }
 
@@ -93,9 +89,6 @@ class GameScreen(private val game: TileGame, private val level: Level) : Disposa
         levelManager.update()
         sounds.forEach { game.sound.play(it) }
         sounds.clear()
-        if (resetLevelAtMillis != 0L && resetLevelAtMillis <= System.currentTimeMillis()) {
-            level.dispatchEvent(ResetLevelEvent)
-        }
     }
 
     override fun resize(width: Int, height: Int) {
