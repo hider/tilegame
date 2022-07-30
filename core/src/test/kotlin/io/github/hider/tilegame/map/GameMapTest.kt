@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 internal class GameMapTest {
 
     @Test
-    fun `map intersection with rectangle`() {
+    fun `map collision with rectangle`() {
         val map = object : GameMap() {
             override val width = 10
             override val height = 10
@@ -22,7 +22,8 @@ internal class GameMapTest {
             override fun getTileTypeByCoordinate(layer: Int, col: Int, row: Int) = TileType(1, "test", true)
             override fun dispose() {}
         }
-        val result = map.findIntersectionWithMapByRect(Rectangle(1f, 1f, 1f, 1f))
-        assertEquals(result, Rectangle(1f, 1f, 1f, 1f))
+        val result = map.findCollidedTilesWithMapByRect(Rectangle(1f, 1f, 1f, 1f))
+        assertEquals(1, result.size)
+        assertEquals(Rectangle(0f, 0f, 2f, 2f), result[0])
     }
 }

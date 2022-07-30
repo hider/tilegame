@@ -36,10 +36,11 @@ sealed class Entity(private val map: GameMap) {
                 if (nextYToCheck < 0) {
                     collisionPos = 0f
                 } else {
-                    val intersection = map.findIntersectionWithMapByRect(toRectangle().setY(nextYToCheck))
-                    if (intersection != null) {
-                        collisionPos = intersection.y + intersection.height
-                    }
+                    map.findCollidedTilesWithMapByRect(toRectangle().setY(nextYToCheck))
+                        .maxByOrNull { it.y }
+                        ?.let {
+                            collisionPos = it.y + it.height
+                        }
                     nextYToCheck -= map.tileSize
                 }
             } while (collisionPos == null && nextYToCheck >= newY)
@@ -52,10 +53,11 @@ sealed class Entity(private val map: GameMap) {
                 if (nextYToCheck + height > map.getPixelHeight()) {
                     collisionPos = map.getPixelHeight() - height
                 } else {
-                    val intersection = map.findIntersectionWithMapByRect(toRectangle().setY(nextYToCheck))
-                    if (intersection != null) {
-                        collisionPos = intersection.y - height
-                    }
+                    map.findCollidedTilesWithMapByRect(toRectangle().setY(nextYToCheck))
+                        .minByOrNull { it.y }
+                        ?.let {
+                            collisionPos = it.y - height
+                        }
                     nextYToCheck += map.tileSize
                 }
             } while (collisionPos == null && nextYToCheck <= newY)
@@ -78,10 +80,11 @@ sealed class Entity(private val map: GameMap) {
                 if (nextXToCheck < 0) {
                     collisionPos = 0f
                 } else {
-                    val intersection = map.findIntersectionWithMapByRect(toRectangle().setX(nextXToCheck))
-                    if (intersection != null) {
-                        collisionPos = intersection.x + intersection.width
-                    }
+                    map.findCollidedTilesWithMapByRect(toRectangle().setX(nextXToCheck))
+                        .maxByOrNull { it.x }
+                        ?.let {
+                            collisionPos = it.x + it.width
+                        }
                     nextXToCheck -= map.tileSize
                 }
             } while (collisionPos == null && nextXToCheck >= newX)
@@ -94,10 +97,11 @@ sealed class Entity(private val map: GameMap) {
                 if (nextXToCheck + width > map.getPixelWidth()) {
                     collisionPos = map.getPixelWidth() - width
                 } else {
-                    val intersection = map.findIntersectionWithMapByRect(toRectangle().setX(nextXToCheck))
-                    if (intersection != null) {
-                        collisionPos = intersection.x - width
-                    }
+                    map.findCollidedTilesWithMapByRect(toRectangle().setX(nextXToCheck))
+                        .minByOrNull { it.x }
+                        ?.let {
+                            collisionPos = it.x - width
+                        }
                     nextXToCheck += map.tileSize
                 }
             } while (collisionPos == null && nextXToCheck <= newX)

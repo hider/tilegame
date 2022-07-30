@@ -26,7 +26,8 @@ abstract class GameMap : Disposable {
         return getTileTypeByCoordinate(layer, getTileColumnByX(x), getTileRowByY(y))
     }
 
-    fun findIntersectionWithMapByRect(rect: Rectangle): Rectangle? {
+    fun findCollidedTilesWithMapByRect(rect: Rectangle): List<Rectangle> {
+        val result = mutableListOf<Rectangle>()
         var row = getTileRowByY(rect.y)
         val rowLast = getTileRowByY(rect.y + rect.height)
         val colLast = getTileColumnByX(rect.x + rect.width)
@@ -41,16 +42,15 @@ abstract class GameMap : Disposable {
                         tileSize.toFloat(),
                         tileSize.toFloat(),
                     )
-                    val intersection = rect.intersection(tileRect)
-                    if (intersection != null) {
-                        return intersection
+                    rect.intersection(tileRect)?.let {
+                        result.add(tileRect)
                     }
                 }
                 ++col
             }
             ++row
         }
-        return null
+        return result
     }
 
     fun getTilePieceByLocation(layer: Int, x: Float, y: Float): TilePiece? {
