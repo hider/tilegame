@@ -1,9 +1,8 @@
 package io.github.hider.tilegame.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import io.github.hider.tilegame.map.GameMap
 
-class EndButton(private val initProps: EntityProps, map: GameMap): EntityWithHitbox(initProps, map) {
+class EndButton(private val initProps: EntityProps): EntityWithHitbox(initProps) {
 
     var down = false
 

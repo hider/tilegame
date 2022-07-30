@@ -2,9 +2,8 @@ package io.github.hider.tilegame.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
-import io.github.hider.tilegame.map.GameMap
 
-sealed class EntityWithHitbox(private val initProps: EntityProps, map: GameMap): Entity(map) {
+sealed class EntityWithHitbox(private val initProps: EntityProps): Entity() {
 
     final override val position: Vector2
     final override val height: Float

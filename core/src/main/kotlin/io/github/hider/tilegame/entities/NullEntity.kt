@@ -3,9 +3,8 @@ package io.github.hider.tilegame.entities
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
-import io.github.hider.tilegame.map.GameMap
 
-class NullEntity(map: GameMap, gid: Int): Entity(map) {
+class NullEntity(gid: Int): Entity() {
 
     init {
         Gdx.app.log("NullEntity", "WARN: NullEntity just created from gid #$gid")

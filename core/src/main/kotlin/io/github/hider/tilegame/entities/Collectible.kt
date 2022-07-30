@@ -1,9 +1,8 @@
 package io.github.hider.tilegame.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import io.github.hider.tilegame.map.GameMap
 
-class Collectible(initProps: EntityProps, map: GameMap): EntityWithHitbox(initProps, map) {
+class Collectible(initProps: EntityProps): EntityWithHitbox(initProps) {
 
     val texture = initProps.stateTexture.idle
     var collected = false
