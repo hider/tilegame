@@ -25,22 +25,18 @@ private const val MAX_SPEED = 5f
 private val JUMP_VELOCITY = Vector2(GRAVITY).nor() * -5.2f
 private const val FRICTION = 10
 
-class Player(private val initProps: EntityProps, private val levelLoader: LevelLoader, map: GameMap): EntityWithCollision(initProps, levelLoader, map) {
+class Player(initProps: EntityProps, private val levelLoader: LevelLoader, map: GameMap): EntityWithCollision(initProps, levelLoader, map) {
 
     private var state = State.Idle
     private var flipX = false
 
     override fun render(batch: Batch) {
-        val renderPos = if (initProps.hitbox == null) {
-            Pair(position.x, position.y)
+        val subtrahendX = if (flipX) {
+            initProps.renderWidth - (initProps.hitbox.x + initProps.hitbox.width)
         } else {
-            val subtrahendX = if (flipX) {
-                initProps.renderWidth - (initProps.hitbox.x + initProps.hitbox.width)
-            } else {
-                initProps.hitbox.x
-            }
-            Pair(position.x - subtrahendX, position.y - initProps.hitbox.y)
+            initProps.hitbox.x
         }
+        val renderPos = Pair(position.x - subtrahendX, position.y - initProps.hitbox.y)
         val drawable = when (state) {
             State.Idle -> initProps.stateTexture.idle
             State.Walking -> initProps.stateTexture.walk()
@@ -128,22 +124,20 @@ class Player(private val initProps: EntityProps, private val levelLoader: LevelL
     private fun handleInteractions(startPos: Vector2, originalVelocity: Vector2) {
         val level = levelLoader.currentLevel
         if (level != null && state != State.Downed) {
-            level.entities.collidables
-                .filter(entityCollisionsLastFrame::contains)
-                .forEach {
-                    if (it is DeadlyEnemy) {
-                        die(it)
-                    } else if (it is Collectible && !it.collected) {
-                        level.dispatchEvent(CollectedEvent)
-                        it.collected = true
-                    } else if (it is EndButton
-                        && originalVelocity.y < 0
-                        && startPos.y > it.position.y + it.height
-                    ) {
-                        it.down = true
-                        level.dispatchEvent(LevelEndEvent)
-                    }
+            entityCollisionsLastFrame.forEach {
+                if (it is DeadlyEnemy) {
+                    die(it)
+                } else if (it is Collectible && !it.collected) {
+                    level.dispatchEvent(CollectedEvent)
+                    it.collected = true
+                } else if (it is EndButton
+                    && originalVelocity.y < 0
+                    && startPos.y > it.position.y + it.height
+                ) {
+                    it.down = true
+                    level.dispatchEvent(LevelEndEvent)
                 }
+            }
         }
     }
 

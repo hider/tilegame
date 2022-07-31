@@ -7,8 +7,8 @@ import io.github.hider.tilegame.map.GameMap
 private const val SPEED = 80f
 
 class Wirler(
-    private val initProps: EntityProps,
-    private val levelLoader: LevelLoader,
+    initProps: EntityProps,
+    levelLoader: LevelLoader,
     map: GameMap,
 ) : EntityWithCollision(initProps, levelLoader, map), DeadlyEnemy {
 
@@ -24,8 +24,7 @@ class Wirler(
     }
 
     override fun render(batch: Batch) {
-        val renderPos =
-            if (initProps.hitbox == null) position.x to position.y else position.x - initProps.hitbox.x to position.y - initProps.hitbox.y
+        val renderPos = position.x - initProps.hitbox.x to position.y - initProps.hitbox.y
         batch.draw(
             initProps.stateTexture.idle,
             renderPos.first,
@@ -41,15 +40,10 @@ class Wirler(
     }
 
     private fun handleInteractions() {
-        val level = levelLoader.currentLevel
         var collided = mapCollisionLastFrame.x != 0f
-        if (level != null) {
-            level.entities.collidables
-                .filter(entityCollisionsLastFrame::contains)
-                .forEach {
-                    if (it is Player) it.die(this)
-                    else if (it.canCollide) collided = true
-                }
+        entityCollisionsLastFrame.forEach {
+            if (it is Player) it.die(this)
+            else if (it.canCollide) collided = true
         }
         if (collided) {
             directionX *= -1

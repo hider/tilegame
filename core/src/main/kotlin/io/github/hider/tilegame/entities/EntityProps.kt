@@ -10,7 +10,7 @@ data class EntityProps(
     val stateTexture: EntityStateTexture,
     val renderWidth: Float,
     val renderHeight: Float,
-    val hitbox: Rectangle?,
+    val hitbox: Rectangle,
     val flip: Flip
 ) {
     data class EntityStateTexture(

@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 
-sealed class Entity {
+sealed class Entity(protected val initProps: EntityProps) {
 
     protected val velocity = Vector2()
 
-    abstract val position: Vector2
-    abstract val height: Float
-    abstract val width: Float
+    val position = Vector2(initProps.position)
+    open val height = initProps.renderHeight
+    open val width = initProps.renderWidth
 
     abstract fun update(deltaTime: Float)
     abstract fun render(batch: Batch)

@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTile
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import io.github.hider.tilegame.FatalGameException
@@ -109,6 +110,8 @@ class LevelLoader(levelsPath: String) : Disposable {
         val walkingAnimTile = findAnimationTile("walkingAnimationId", obj, tileSets)
         val jumpingAnimTile = findAnimationTile("jumpingAnimationId", obj, tileSets)
         val downAnimTile = findAnimationTile("downAnimationId", obj, tileSets)
+        val width = obj.properties["width"] as Float
+        val height = obj.properties["height"] as Float
         return EntityProps(
             obj.properties["id"] as Int,
             Vector2(obj.x, obj.y),
@@ -118,9 +121,9 @@ class LevelLoader(levelsPath: String) : Disposable {
                 jumpingAnimTile?.textureRegion ?: obj.tile.textureRegion,
                 downAnimTile?.textureRegion ?: obj.tile.textureRegion,
             ),
-            obj.properties["width"] as Float,
-            obj.properties["height"] as Float,
-            obj.tile.objects.filterIsInstance<RectangleMapObject>().firstOrNull()?.rectangle,
+            width,
+            height,
+            findHitbox(obj) ?: Rectangle(0f, 0f, width, height),
             EntityProps.Flip(obj.isFlipVertically, obj.isFlipHorizontally),
         )
     }
@@ -134,6 +137,17 @@ class LevelLoader(levelsPath: String) : Disposable {
                 .find { it.properties["animationId"] == targetAnimationId }
         }
         return null
+    }
+
+    private fun findHitbox(obj: TiledMapTileMapObject): Rectangle? {
+        var result: Rectangle? = null
+        obj.tile.objects.filterIsInstance<RectangleMapObject>().forEach {
+            if (result == null && it.name == "hitbox") result = it.rectangle
+            else {
+                Gdx.app.log("LevelLoader", "WARN: Unknown object in tile " + obj.tile.properties["type"] +" (entity #" + obj.properties["id"] + ")")
+            }
+        }
+        return result
     }
 }
 

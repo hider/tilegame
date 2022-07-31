@@ -34,7 +34,7 @@
    <property name="type" value="io.github.hider.tilegame.entities.Spike"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="29.5" width="63" height="34.5"/>
+   <object id="1" name="hitbox" x="0" y="29.5" width="63" height="34.5"/>
   </objectgroup>
  </tile>
  <tile id="73" class="Entity">
@@ -54,7 +54,7 @@
    <property name="type" value="io.github.hider.tilegame.entities.EndButton"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="3.41266" y="29.7028" width="57.1304" height="34.1266"/>
+   <object id="1" name="hitbox" x="3.41266" y="29.7028" width="57.1304" height="34.1266"/>
   </objectgroup>
  </tile>
  <tile id="83">

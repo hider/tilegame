@@ -10,7 +10,7 @@
    <property name="walkingAnimationId" type="int" value="1"/>
   </properties>
   <objectgroup draworder="index" id="4">
-   <object id="5" x="27.5984" y="30" width="46.5056" height="66"/>
+   <object id="5" name="hitbox" x="27.5984" y="30" width="46.5056" height="66"/>
   </objectgroup>
  </tile>
  <tile id="1">

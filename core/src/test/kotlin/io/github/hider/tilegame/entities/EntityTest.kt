@@ -29,7 +29,7 @@ internal class EntityTest {
         val texture = mockk<TextureRegion>()
         val stateTexture = EntityProps.EntityStateTexture(texture, { texture }, texture, texture)
         val pos = Vector2(2f, 4f)
-        val props = EntityProps(1, pos, stateTexture, 10f, 20f, null, EntityProps.Flip(false, false))
+        val props = EntityProps(1, pos, stateTexture, 10f, 20f, Rectangle(0f, 0f, 10f, 20f), EntityProps.Flip(false, false))
         val levelLoader = mockk<LevelLoader>()
         val map = createMap()
         val entity = Player(props, levelLoader, map)
@@ -49,8 +49,8 @@ internal class EntityTest {
         var props = EntityProps(1, pos, stateTexture, 10f, 20f, Rectangle(1f, 2f, 3f, 4f), EntityProps.Flip(false, false))
         var entity = Collectible(props)
         assertEquals(Vector2(2f + 1f, 4f + 2f), entity.position)
-        assertEquals(props.hitbox!!.height, entity.height)
-        assertEquals(props.hitbox!!.width, entity.width)
+        assertEquals(props.hitbox.height, entity.height)
+        assertEquals(props.hitbox.width, entity.width)
 
         justRun { batch.draw(any<TextureRegion>(), pos.x, pos.y, props.renderWidth, props.renderHeight) }
         entity.render(batch)
@@ -64,7 +64,6 @@ internal class EntityTest {
         entity.render(batch)
         verify { batch.draw(any<TextureRegion>(), entity.position.x - 1f, entity.position.y - 2f + 4f, props.renderWidth, -props.renderHeight) }
     }
-
 
     @Test
     fun collision() {
