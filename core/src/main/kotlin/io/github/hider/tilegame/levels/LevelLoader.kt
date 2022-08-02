@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.maps.MapObjects
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTile
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
@@ -29,6 +28,7 @@ class LevelLoader(levelsPath: String) : Disposable {
     var currentLevel: Level? = null
         private set
     private val levels: List<LevelData>
+    private val stateTiles = mutableMapOf<Int, TiledMapTile>()
 
     init {
         try {
@@ -67,6 +67,12 @@ class LevelLoader(levelsPath: String) : Disposable {
 
     private fun createLevel(batch: Batch, data: LevelData): Level {
         val map = TiledGameMap(batch, data.tmx)
+        stateTiles.clear()
+        map.tiledMap.tileSets
+            .asSequence()
+            .flatMap { it.iterator().asSequence() }
+            .filter { it.properties["animationId"] is Int }
+            .associateByTo(stateTiles) { it.properties["animationId"] as Int }
         val entityObjects = map.getLayer(data.tmx.entitiesLayerName)?.objects
         val entities = if (entityObjects != null) convertToEntitiesAndEnhanceLayerObjects(map, entityObjects) else emptyList()
         return LevelImpl(data.name, map, Entities(entities))
@@ -96,31 +102,23 @@ class LevelLoader(levelsPath: String) : Disposable {
 
     private fun createEntity(obj: TiledMapTileMapObject, map: TiledGameMap): Entity {
         return when (obj.tile.properties["type"] as String?) {
-            Player::class.qualifiedName -> Player(createProps(obj, map.tiledMap.tileSets), this, map)
-            Spike::class.qualifiedName -> Spike(createProps(obj, map.tiledMap.tileSets))
-            Collectible::class.qualifiedName -> Collectible(createProps(obj, map.tiledMap.tileSets))
-            EndProtector::class.qualifiedName -> EndProtector(createProps(obj, map.tiledMap.tileSets))
-            EndButton::class.qualifiedName -> EndButton(createProps(obj, map.tiledMap.tileSets))
-            Wirler::class.qualifiedName -> Wirler(createProps(obj, map.tiledMap.tileSets), this, map)
+            Player::class.qualifiedName -> Player(createProps(obj), this, map)
+            Spike::class.qualifiedName -> Spike(createProps(obj))
+            Collectible::class.qualifiedName -> Collectible(createProps(obj))
+            EndProtector::class.qualifiedName -> EndProtector(createProps(obj))
+            EndButton::class.qualifiedName -> EndButton(createProps(obj))
+            Wirler::class.qualifiedName -> Wirler(createProps(obj), this, map)
             else -> NullEntity(obj.properties["gid"] as Int)
         }
     }
 
-    private fun createProps(obj: TiledMapTileMapObject, tileSets: TiledMapTileSets): EntityProps {
-        val walkingAnimTile = findAnimationTile("walkingAnimationId", obj, tileSets)
-        val jumpingAnimTile = findAnimationTile("jumpingAnimationId", obj, tileSets)
-        val downAnimTile = findAnimationTile("downAnimationId", obj, tileSets)
+    private fun createProps(obj: TiledMapTileMapObject): EntityProps {
         val width = obj.properties["width"] as Float
         val height = obj.properties["height"] as Float
         return EntityProps(
             obj.properties["id"] as Int,
             Vector2(obj.x, obj.y),
-            EntityProps.EntityStateTexture(
-                obj.tile.textureRegion,
-                { walkingAnimTile?.textureRegion ?: obj.tile.textureRegion },
-                jumpingAnimTile?.textureRegion ?: obj.tile.textureRegion,
-                downAnimTile?.textureRegion ?: obj.tile.textureRegion,
-            ),
+            findStateTextures(obj),
             width,
             height,
             findHitbox(obj) ?: Rectangle(0f, 0f, width, height),
@@ -128,15 +126,17 @@ class LevelLoader(levelsPath: String) : Disposable {
         )
     }
 
-    private fun findAnimationTile(anim: String, obj: TiledMapTileMapObject, tileSets: TiledMapTileSets): TiledMapTile? {
-        if (obj.tile.properties[anim] != null) {
-            val targetAnimationId = obj.tile.properties[anim] as Int
-            return tileSets
-                .asSequence()
-                .flatMap { it.iterator().asSequence() }
-                .find { it.properties["animationId"] == targetAnimationId }
-        }
-        return null
+    private fun findStateTextures(obj: TiledMapTileMapObject): EntityProps.EntityStateTexture {
+        val walking = obj.tile.properties["walkingAnimationId"] as Int?
+        val jumping = obj.tile.properties["jumpingAnimationId"] as Int?
+        val down = obj.tile.properties["downAnimationId"] as Int?
+
+        return EntityProps.EntityStateTexture(
+            obj.tile.textureRegion,
+            { stateTiles[walking]?.textureRegion ?: obj.tile.textureRegion },
+            stateTiles[jumping]?.textureRegion ?: obj.tile.textureRegion,
+            stateTiles[down]?.textureRegion ?: obj.tile.textureRegion,
+        )
     }
 
     private fun findHitbox(obj: TiledMapTileMapObject): Rectangle? {

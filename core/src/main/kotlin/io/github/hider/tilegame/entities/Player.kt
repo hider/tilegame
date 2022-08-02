@@ -37,15 +37,9 @@ class Player(initProps: EntityProps, private val levelLoader: LevelLoader, map: 
             initProps.hitbox.x
         }
         val renderPos = Pair(position.x - subtrahendX, position.y - initProps.hitbox.y)
-        val drawable = when (state) {
-            State.Idle -> initProps.stateTexture.idle
-            State.Walking -> initProps.stateTexture.walk()
-            State.Jumping -> initProps.stateTexture.jump
-            State.Downed -> initProps.stateTexture.down
-        }
-        val doFlipX = flipX && !drawable.isFlipX || !flipX && drawable.isFlipX
-        drawable.flip(doFlipX, false)
-        batch.draw(drawable, renderPos.first, renderPos.second, initProps.renderWidth, initProps.renderHeight)
+        val doFlipX = flipX && !textureRegion.isFlipX || !flipX && textureRegion.isFlipX
+        textureRegion.flip(doFlipX, false)
+        batch.draw(textureRegion, renderPos.first, renderPos.second, initProps.renderWidth, initProps.renderHeight)
     }
 
     override fun update(deltaTime: Float) {
@@ -150,6 +144,12 @@ class Player(initProps: EntityProps, private val levelLoader: LevelLoader, map: 
             } else {
                 State.Idle
             }
+        }
+        textureRegion = when (state) {
+            State.Idle -> initProps.stateTexture.idle
+            State.Walking -> initProps.stateTexture.walk()
+            State.Jumping -> initProps.stateTexture.jump
+            State.Downed -> initProps.stateTexture.down
         }
     }
 }

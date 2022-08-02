@@ -26,7 +26,7 @@ class Wirler(
     override fun render(batch: Batch) {
         val renderPos = position.x - initProps.hitbox.x to position.y - initProps.hitbox.y
         batch.draw(
-            initProps.stateTexture.idle,
+            textureRegion,
             renderPos.first,
             renderPos.second,
             initProps.renderWidth / 2,

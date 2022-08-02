@@ -1,9 +1,11 @@
 package io.github.hider.tilegame.entities
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 
 sealed class EntityWithHitbox(initProps: EntityProps): Entity(initProps) {
 
+    open var textureRegion: TextureRegion = initProps.stateTexture.idle
     open var canCollide = true
     final override val height: Float
     final override val width: Float
@@ -23,6 +25,6 @@ sealed class EntityWithHitbox(initProps: EntityProps): Entity(initProps) {
             initProps.hitbox.height
         } else 0f
         val renderHeight = initProps.renderHeight * if (initProps.flip.vertical) -1 else 1
-        batch.draw(initProps.stateTexture.idle, renderPos.first, renderPos.second, initProps.renderWidth, renderHeight)
+        batch.draw(textureRegion, renderPos.first, renderPos.second, initProps.renderWidth, renderHeight)
     }
 }

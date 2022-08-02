@@ -28,7 +28,7 @@ class Hud(private val camera: Camera, private val fonts: Fonts, level: Level) {
         color = Color.valueOf("#34deeb").apply { a = .2f }
     }
     private val collectibleCount = level.entities.collidables.filterIsInstance<Collectible>().size
-    private val collectibleTexture = if (collectibleCount > 0) level.entities.collidables.filterIsInstance<Collectible>()[0].texture else null
+    private val collectibleTexture = if (collectibleCount > 0) level.entities.collidables.filterIsInstance<Collectible>()[0].textureRegion else null
     private val messages = UiMessages(camera)
     private var lastMessageMillis = 0L
     private var collectedCount = 0

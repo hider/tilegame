@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 
 class Collectible(initProps: EntityProps): EntityWithHitbox(initProps) {
 
-    val texture = initProps.stateTexture.idle
     var collected = false
 
     override var canCollide = false

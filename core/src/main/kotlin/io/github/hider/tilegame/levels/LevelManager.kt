@@ -47,6 +47,7 @@ class LevelManager(level: Level, private val hud: Hud, private val game: TileGam
                     } else {
                         game.showMainMenu()
                     }
+                    levelEnd = false
                 }
             }
         }
