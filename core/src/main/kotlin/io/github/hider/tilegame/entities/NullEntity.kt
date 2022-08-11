@@ -1,10 +1,10 @@
 package io.github.hider.tilegame.entities
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import org.slf4j.LoggerFactory
 
 private val textureRegion = TextureRegion()
 
@@ -19,9 +19,10 @@ private val nullProps = EntityProps(
 )
 
 class NullEntity(gid: Int): Entity(nullProps) {
+    private val log = LoggerFactory.getLogger(this.javaClass)
 
     init {
-        Gdx.app.log("NullEntity", "WARN: NullEntity just created from gid #$gid")
+        log.warn("WARN: NullEntity just created from gid #{}", gid)
     }
 
     override fun update(deltaTime: Float) {/* Nothing to update */}

@@ -5,16 +5,18 @@ Two level platformer game written in Kotlin.
 [![CircleCI](https://circleci.com/gh/hider/tilegame/tree/main.svg?style=shield)](https://circleci.com/gh/hider/tilegame/tree/main)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hider_tilegame&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=hider_tilegame)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=hider_tilegame&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=hider_tilegame)
+[![GitHub license](https://img.shields.io/github/license/hider/tilegame)](https://github.com/hider/tilegame/blob/main/LICENSE)
+![Kotlin](https://img.shields.io/badge/kotlin-1.6-0095D5?&logo=kotlin)
 
 Level map is created with [Tiled](https://www.mapeditor.org/).
 
-Binary assets are not included in the repository, instead you can download them from [_Releases_](https://github.com/hider/tilegame/releases).
+Binary assets are not included in the repository, instead you can download them from [_Releases_](https://github.com/hider/tilegame/releases/download/v0.0.1/assets.zip).
 
 ## How to play
 
 Make sure Java 11 or newer is available in your system. You can download Java from https://adoptium.net/.
 
-Download the latest _desktop_ asset from [_Releases_](https://github.com/hider/tilegame/releases) and extract the contents into a directory. Launch the game with the `desktop-<version>/bin/desktop` script. 
+Download the latest _desktop_ asset from [_Releases_](https://github.com/hider/tilegame/releases/latest) and extract the contents into a directory. Launch the game with the `desktop-<version>/bin/desktop` script. 
 
 ## License
 

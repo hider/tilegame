@@ -20,10 +20,12 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.slf4j.LoggerFactory
 import java.util.function.Consumer
 import kotlin.reflect.KClass
 
 class LevelLoader(levelsPath: String) : Disposable {
+    private val log = LoggerFactory.getLogger(this.javaClass)
 
     var currentLevel: Level? = null
         private set
@@ -37,7 +39,7 @@ class LevelLoader(levelsPath: String) : Disposable {
             levels = Json.decodeFromStream(file.read())
         } catch (e: Exception) {
             val message = "Unable to load game levels from $levelsPath"
-            Gdx.app.error("LevelLoader.init", message, e)
+            log.error(message, e)
             throw FatalGameException(message, e)
         }
     }
@@ -144,7 +146,7 @@ class LevelLoader(levelsPath: String) : Disposable {
         obj.tile.objects.filterIsInstance<RectangleMapObject>().forEach {
             if (result == null && it.name == "hitbox") result = it.rectangle
             else {
-                Gdx.app.log("LevelLoader", "WARN: Unknown object in tile " + obj.tile.properties["type"] +" (entity #" + obj.properties["id"] + ")")
+                log.warn("Unknown object in tile {} (entity #{})", obj.tile.properties["type"], obj.properties["id"])
             }
         }
         return result

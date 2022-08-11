@@ -12,8 +12,11 @@ import io.github.hider.tilegame.io.Sound
 import io.github.hider.tilegame.levels.LevelLoader
 import io.github.hider.tilegame.screens.GameScreen
 import io.github.hider.tilegame.screens.MainMenuScreen
+import org.slf4j.LoggerFactory
 
 class TileGame : Game() {
+    private val log = LoggerFactory.getLogger(this.javaClass)
+
     lateinit var batch: SpriteBatch
         private set
     lateinit var fonts: Fonts
@@ -76,7 +79,7 @@ class TileGame : Game() {
                 levelLoader.load(levelName, batch)
             } catch (e: Exception) {
                 val message = "Failed to load level '$levelName'. Exiting..."
-                Gdx.app.error("showGameScreen", message, e)
+                log.error(message, e)
                 throw FatalGameException(message, e)
             }
             gameScreen?.dispose()

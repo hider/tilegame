@@ -10,6 +10,8 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:$libGdxVersion")
     implementation("com.badlogicgames.gdx:gdx-platform:$libGdxVersion:natives-desktop")
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:$libGdxVersion:natives-desktop")
+    implementation("io.github.hider:libgdx-slf4j-logger:1.0.0")
+    runtimeOnly("org.slf4j:slf4j-simple:1.7.36")
 }
 
 tasks {
